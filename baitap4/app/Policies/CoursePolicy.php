@@ -9,9 +9,10 @@ use Illuminate\Auth\Access\Response;
 class CoursePolicy
 {
     
-    /**
-     * Determine whether the user can view any models.
-     */
+    public function modify(User $user, Course $course) {
+        // INS-01: Instructor chỉ xem/sửa/xóa khóa học của chính mình.
+        return $user->id === $course->instructor_id;
+    }
     public function viewAny(User $user): bool
     {
         return false;
