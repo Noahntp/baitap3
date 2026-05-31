@@ -10,9 +10,16 @@ class StoreCourseRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
+
+
+    public function authorize() { return true; }
+    public function rules() {
+        return [
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|unique:courses,slug',
+            'price' => 'numeric|min:0',
+            'level' => 'required|in:beginner,intermediate,advanced'
+        ];
     }
 
     /**
@@ -20,10 +27,5 @@ class StoreCourseRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            //
-        ];
-    }
+    
 }
